@@ -9,6 +9,14 @@
 		{% if not ingredients.items is same as([]) %}
 			<h1>Mes ingrédients</h1>
 
+			{# affiche un message de succes #}
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					<strong>Succès!</strong>
+					{{ message }}
+				</div>
+			{% endfor %}
+
 			{# affiche le nombre total d'ingrédient #}
 			<div class="count mt-4">
 				Il y a
@@ -43,8 +51,8 @@
 				{{ knp_pagination_render(ingredients) }}
 			</div>
 
-			{% else %}
-            <h4>Il n'y a pas d'ingrédients</h4>
+		{% else %}
+			<h4>Il n'y a pas d'ingrédients</h4>
 		{% endif %}
 
 	</div>

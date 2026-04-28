@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symrecipe - Nouveau ingrédient
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="mt-4">Créer un ingrédient</h1>
+		{{ form_start(form) }}
+
+		<div class="form-group">
+			{{ form_label(form.name) }}
+			{{ form_widget(form.name) }}
+			{{ form_errors(form.name) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.price) }}
+			{{ form_widget(form.price) }}
+			{{ form_errors(form.price) }}
+		</div>
+
+		{{ form_label(form.submit) }}
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
