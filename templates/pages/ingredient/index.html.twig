@@ -5,39 +5,47 @@
 
 {% block body %}
 	<div class="container mt-4">
-		<h1>Mes ingrédients</h1>
 
-        {# affiche le nombre total d'ingrédient #}
-        <div class="count mt-4">
-            Il y a {{ ingredients.getTotalItemCount }} ingrédients au total
-        </div>
+		{% if not ingredients.items is same as([]) %}
+			<h1>Mes ingrédients</h1>
 
-		{# Afficher la liste des ingrédients #}
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>Numréro</th>
-					<th>Nom</th>
-					<th>Prix</th>
-					<th>Date de création</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for ingredient in ingredients %}
-					<tr class="table-danger">
-						<td>{{ ingredient.id }}</td>
-						<td>{{ ingredient.name }}</td>
-						<td>{{ ingredient.price }}</td>
-						<td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
+			{# affiche le nombre total d'ingrédient #}
+			<div class="count mt-4">
+				Il y a
+				{{ ingredients.getTotalItemCount }}
+				ingrédients au total
+			</div>
+
+			{# Afficher la liste des ingrédients #}
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Numréro</th>
+						<th>Nom</th>
+						<th>Prix</th>
+						<th>Date de création</th>
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for ingredient in ingredients %}
+						<tr class="table-danger">
+							<td>{{ ingredient.id }}</td>
+							<td>{{ ingredient.name }}</td>
+							<td>{{ ingredient.price }}</td>
+							<td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 
-        {# affiche la navigation de pagination #}
-		<div class="navigation d-flex justify-content-center">
-			{{ knp_pagination_render(ingredients) }}
-		</div>
+			{# affiche la navigation de pagination #}
+			<div class="navigation d-flex justify-content-center">
+				{{ knp_pagination_render(ingredients) }}
+			</div>
+
+			{% else %}
+            <h4>Il n'y a pas d'ingrédients</h4>
+		{% endif %}
 
 	</div>
 {% endblock %}
