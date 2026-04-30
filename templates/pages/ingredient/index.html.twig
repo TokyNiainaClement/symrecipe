@@ -29,22 +29,33 @@
 			</div>
 
 			{# Afficher la liste des ingrédients #}
-			<table class="table table-hover">
+			<table class="table table-bordered table-borderless">
 				<thead>
 					<tr>
 						<th>Numréro</th>
 						<th>Nom</th>
 						<th>Prix</th>
 						<th>Date de création</th>
+						<th colspan="2">Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for ingredient in ingredients %}
-						<tr class="table-danger">
+						<tr class="table-active">
 							<td>{{ ingredient.id }}</td>
 							<td>{{ ingredient.name }}</td>
 							<td>{{ ingredient.price }}</td>
 							<td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
+							<td>
+								<a class="btn btn-info btn-sm" href="#">
+									Modifier
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger btn-sm" href="{{ path('ingredient.delete', { id: ingredient.id }) }}">
+									Supprimer
+								</a>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>
