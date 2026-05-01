@@ -47,7 +47,7 @@
 							<td>{{ ingredient.price }}</td>
 							<td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
 							<td>
-								<a class="btn btn-info btn-sm" href="#">
+								<a class="btn btn-info btn-sm" href="{{ path('ingredient.edit', {id: ingredient.id}) }}">
 									Modifier
 								</a>
 							</td>
