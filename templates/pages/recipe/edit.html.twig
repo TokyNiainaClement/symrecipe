@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symrecipe - Modifier la recette
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="mt-4">Modification de la recette</h1>
+		{{ form_start(form) }}
+
+		<div class="form-group">
+			{{ form_label(form.name) }}
+			{{ form_widget(form.name) }}
+			{{ form_errors(form.name) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.time) }}
+			{{ form_widget(form.time) }}
+			{{ form_errors(form.time) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.nbPeople) }}
+			{{ form_widget(form.nbPeople) }}
+			{{ form_errors(form.nbPeople) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.difficulty) }}
+			{{ form_widget(form.difficulty) }}
+			{{ form_errors(form.difficulty) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.description) }}
+			{{ form_widget(form.description) }}
+			{{ form_errors(form.description) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.price) }}
+			{{ form_widget(form.price) }}
+			{{ form_errors(form.price) }}
+		</div>
+
+		<div class="form-check-inline">
+			<label class="form-check-label mt-4">
+				{{ form_widget(form.isFavorite) }}Favorite ?
+			</label>
+			{{ form_errors(form.isFavorite) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.ingredients) }}
+			{{ form_widget(form.ingredients) }}
+			{{ form_errors(form.ingredients) }}
+		</div>
+
+		{{ form_label(form.submit) }}
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

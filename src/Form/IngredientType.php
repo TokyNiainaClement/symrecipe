@@ -49,7 +49,7 @@ class IngredientType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-secondary btn-sm mt-4'
                 ],
-                'label' => 'Créer un ingrédient'
+                'label' => 'Créer l\'ingrédient'
             ]);
     }
 

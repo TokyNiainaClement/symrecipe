@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Symrecipe - Mes ingrédients
+{% block title %}Symrecipe - Mes recettes
 {% endblock %}
 
 {% block body %}
 	<div class="container mt-4">
 
-		{% if not ingredients.items is same as([]) %}
-			<h1>Mes ingrédients</h1>
+		{% if not recipes.items is same as([]) %}
+			<h1>Mes recettes</h1>
 
 			{# affiche un message de succes #}
 			{% for message in app.flashes('success') %}
@@ -20,35 +20,37 @@
 			{# affiche le nombre total d'ingrédient #}
 			<div class="count mt-4">
 				Il y a
-				{{ ingredients.getTotalItemCount }}
-				ingrédients au total
+				{{ recipes.getTotalItemCount }}
+				recettes au total
 			</div>
 
-			{# Afficher la liste des ingrédients #}
+			{# Afficher la liste des recettes #}
 			<table class="table table-bordered table-borderless">
 				<thead>
 					<tr>
 						<th>Numréro</th>
 						<th>Nom</th>
 						<th>Prix</th>
+						<th>Difficulté</th>
 						<th>Date de création</th>
 						<th colspan="2">Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for ingredient in ingredients %}
+					{% for recipe in recipes %}
 						<tr class="table-active">
-							<td>{{ ingredient.id }}</td>
-							<td>{{ ingredient.name }}</td>
-							<td>{{ ingredient.price }}</td>
-							<td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
+							<td>{{ recipe.id }}</td>
+							<td>{{ recipe.name }}</td>
+							<td>{{ (recipe.price is same as(null)) ? '--' : recipe.price}}</td>
+							<td>{{ (recipe.difficulty is same as(null)) ? '--' : recipe.difficulty}}</td>
+							<td>{{ recipe.createdAt|date('d/m/Y') }}</td>
 							<td>
-								<a class="btn btn-info btn-sm" href="{{ path('ingredient.edit', {id: ingredient.id}) }}">
+								<a class="btn btn-info btn-sm" href="{{ path('recipe.edit', {id: recipe.id}) }}">
 									Modifier
 								</a>
 							</td>
 							<td>
-								<a class="btn btn-danger btn-sm" href="{{ path('ingredient.delete', { id: ingredient.id }) }}">
+								<a class="btn btn-danger btn-sm" href="{{ path('recipe.delete', {id: recipe.id}) }}">
 									Supprimer
 								</a>
 							</td>
@@ -59,15 +61,15 @@
 
 			{# affiche la navigation de pagination #}
 			<div class="navigation d-flex justify-content-center">
-				{{ knp_pagination_render(ingredients) }}
+				{{ knp_pagination_render(recipes) }}
 			</div>
 
 		{% else %}
-			<h4>Il n'y a pas d'ingrédients</h4>
+			<h4>Il n'y a pas de recette</h4>
 		{% endif %}
 
-		<a class="btn btn-dark btn-sm mt-3" href="{{ path('ingredient.new') }}">
-			Créer un ingrédient
+		<a class="btn btn-dark btn-sm mt-3" href="{{ path('recipe.new') }}">
+			Créer une recette
 		</a>
 
 	</div>
