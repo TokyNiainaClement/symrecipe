@@ -95,12 +95,14 @@ final class UserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             if($hasher->isPasswordValid($user, $form->getData()['plainPassword'])) {
-                $user->setPassword(
-                    $hasher->hashPassword(
-                        $user,
-                        $form->getData()['newPassword'])
+                // il faut modifier une colonne de la base de donnée pour
+                // que le preUpdate se déclanche, par exepmle updatedAt qui est dans la base de
+                // donnée.
+                $user->setUpdatedAt(new \DateTimeImmutable());
+                $user->setPlainPassword(
+                    $form->getData()['newPassword']
                 );
-
+                
                 $manager->persist($user);
                 $manager->flush();
 
