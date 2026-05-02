@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Ingredient;
 use App\Entity\Recipe;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -52,6 +53,18 @@ class AppFixtures extends Fixture
             }
 
             $manager->persist($recipe);
+        }
+
+        // User
+        for ($i = 0; $i < 10; $i++) { 
+            $user = new User();
+            $user->setFullName($this->faker->name())
+            ->setPseudo(mt_rand(0, 1) == 1 ? $this->faker->firstName() : null)
+            ->setEmail($this->faker->email())
+            ->setRoles(['ROLE_USER'])
+            ->setPlainPassword('password');
+
+            $manager->persist($user);
         }
 
         // De avy eo pusher-na any amin'ny base de donnée
