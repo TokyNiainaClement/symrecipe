@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SymRecipe - Connexion
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h4 class="mt-4">Formulaire de connexion</h4>
+
+        {# Affiche une message d'erreur en cas d'erreur d'authentification #}
+		{% if error %}
+			<div class="alert alert-danger">
+				<strong>Error! </strong>
+				{{ error.messageKey|trans(error.messageData, 'security') }}
+			</div>
+		{% endif %}
+
+		<form class="jumbotron mt-4" action="{{ path('security.login') }}" method="post">
+			<div class="form-group">
+				<label for="username">Adresse email:</label>
+				<input type="email" class="form-control" placeholder="exemple@symrecipe.fr" 
+                id="username" 
+                name="_username"
+                value="{{ last_username }}">
+			</div>
+			<div class="form-group">
+				<label for="password">Mot de passe:</label>
+				<input type="password" class="form-control" placeholder="********" id="password" name="_password">
+			</div>
+
+			<button type="submit" class="btn btn-sm btn-secondary mt-3">Se connecter</button>
+		</form>
+	</div>
+{% endblock %}
