@@ -7,21 +7,27 @@
 	<div class="container">
 		<h4 class="mt-4">Formulaire de connexion</h4>
 
-        {# Affiche une message d'erreur en cas d'erreur d'authentification #}
+		{# Affiche une message d'erreur en cas d'erreur d'authentification #}
 		{% if error %}
 			<div class="alert alert-danger">
-				<strong>Error! </strong>
+				<strong>Error!
+				</strong>
 				{{ error.messageKey|trans(error.messageData, 'security') }}
 			</div>
 		{% endif %}
 
+		{# affiche un message de succes #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-3">
+				<strong>Succès!</strong>
+				{{ message }}
+			</div>
+		{% endfor %}
+
 		<form class="jumbotron mt-4" action="{{ path('security.login') }}" method="post">
 			<div class="form-group">
 				<label for="username">Adresse email:</label>
-				<input type="email" class="form-control" placeholder="exemple@symrecipe.fr" 
-                id="username" 
-                name="_username"
-                value="{{ last_username }}">
+				<input type="email" class="form-control" placeholder="exemple@symrecipe.fr" id="username" name="_username" value="{{ last_username }}">
 			</div>
 			<div class="form-group">
 				<label for="password">Mot de passe:</label>
