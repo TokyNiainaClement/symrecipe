@@ -11,18 +11,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class RecipeController extends AbstractController
 {
-    #[Route('/recette', name: 'recipe.index', methods: ['GET'])]
     /**
      * this controller display all recipes
-     *
-     * @param RecipeRepository $repository
-     * @param PaginatorInterface $paginator
-     * @param Request $request
-     * @return Response
-     */
+    *
+    * @param RecipeRepository $repository
+    * @param PaginatorInterface $paginator
+    * @param Request $request
+    * @return Response
+    */
+    #[IsGranted('ROLE_USER')]
+    #[Route('/recette', name: 'recipe.index', methods: ['GET'])]
     public function index(RecipeRepository $repository, 
     PaginatorInterface $paginator,
     Request $request): Response
@@ -45,6 +47,7 @@ final class RecipeController extends AbstractController
     * @param EntityManagerInterface $manager
     * @return Response
     */
+    #[IsGranted('ROLE_USER')]
     #[Route('/recette/nouvelle', name: 'recipe.new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
@@ -81,12 +84,18 @@ final class RecipeController extends AbstractController
     * @param EntityManagerInterface $manager
     * @return Response
     */
+    #[IsGranted('ROLE_USER')]
     #[Route('/recette/edition/{id}', name: 'recipe.edit', methods: ['GET', 'POST'])]
     public function edit(
         Recipe $recipe,
         Request $request,
         EntityManagerInterface $manager
     ): Response {
+
+        if($recipe->getUser() != $this->getUser()) {
+            return $this->redirectToRoute('recipe.index');
+        }
+        
         $form = $this->createForm(RecipeType::class, $recipe); // Utilisation d'un
         // param-converteur => $recipe
 

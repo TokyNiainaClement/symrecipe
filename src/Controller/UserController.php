@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class UserController extends AbstractController
 {
@@ -22,6 +23,7 @@ final class UserController extends AbstractController
     * @param EntityManagerInterface $manager
     * @return Response
     */
+    #[IsGranted('ROLE_USER')]
     #[Route('/utilisateur/edition/{id}', name: 'user.edit', methods: ['GET', 'POST'])]
     public function edit(
         User $user,
@@ -29,14 +31,7 @@ final class UserController extends AbstractController
         EntityManagerInterface $manager,
         UserPasswordHasherInterface $hasher): Response
     {
-        // Si aucun utilisateur n'est conncté
-        if(!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
-        // Si l'utilisateur connecté est différent de l'utilisateur
-        // passé en paramètre (param converteur)
-        if($this->getUser() !== $user) {
+        if($user !== $this->getUser()) {
             return $this->redirectToRoute('recipe.index');
         }
 
@@ -78,14 +73,11 @@ final class UserController extends AbstractController
     * @param EntityManagerInterface $manager
     * @return Response
     */
+    #[IsGranted('ROLE_USER')]
     #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user.edit.password', methods: ['GET', 'POST'])]
     public function editPassword(Request $request,
     User $user, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager): Response
     {
-        if(!$this->getUser()) {
-            return $this->redirectToRoute('security.login');
-        }
-
         if($this->getUser() !== $user) {
             return $this->redirectToRoute('recipe.index');
         }
