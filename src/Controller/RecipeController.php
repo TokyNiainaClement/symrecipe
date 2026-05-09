@@ -28,7 +28,7 @@ final class RecipeController extends AbstractController
     Request $request): Response
     {
         $recipes = $paginator->paginate(
-            $repository->findAll(),
+            $repository->findBy(['user' => $this->getUser()]),
             $request->query->getInt('page', 1), /* Nombre de page */
             5 /* Limite par page */
         );
@@ -54,6 +54,7 @@ final class RecipeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
+            $recipe->setUser($this->getUser());// Lier une recette à un utilisateur
 
             $manager->persist($recipe);
             $manager->flush();

@@ -8,8 +8,15 @@
 		</title>
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
-			<link rel="stylesheet" href="http://127.0.0.1:8000/css/bootstrap.min.css"/>
 			<link rel="stylesheet" href="http://127.0.0.1:8000/css/all.min.css"/>
+			<link rel="stylesheet" href="http://127.0.0.1:8000/css/bootstrap.min.css"/>
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_link_tags('app') }}
+			<script src="http://127.0.0.1:8000/js/jquery-3.7.1.min.js"></script>
+			<script src="http://127.0.0.1:8000/js/all.min.js"></script>
+			<script src="http://127.0.0.1:8000/js/bootstrap.min.js"></script>
 		{% endblock %}
 
 	</head>

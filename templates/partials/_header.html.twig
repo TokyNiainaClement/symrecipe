@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="javascript:void(0)">Navbar</a>
+	<a class="navbar-brand" href="javascript:void(0)">SymRecipe</a>
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -7,14 +7,40 @@
 	<div class="collapse navbar-collapse" id="navb">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<a class="nav-link active" href="/">Accueil</a>
+				<a class="nav-link active" href="{{ path('home.index') }}">Accueil</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{{ path('ingredient.index') }}">Mes ingrédients</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="{{ path('recipe.index') }}">Mes recettes</a>
-			</li>
+			{% if app.user %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('ingredient.index') }}">Mes ingrédients</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('recipe.index') }}">Mes recettes</a>
+				</li>
+			{% endif %}
+		</ul>
+
+		<!-- Dropdown -->
+		<ul class="navbar-nav mr-6">
+			{% if app.user %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						{{ app.user.fullName }}
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="{{ path('user.edit', {id: app.user.id}) }}">Modifier mes informations</a>
+						<a class="dropdown-item" href="{{ path('user.edit.password', {id: app.user.id}) }}">Modifier mon mot de passe</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{ path('security.logout')}}">Déconncter</a>
+					</div>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('security.login') }}">Connexion</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('security.registration') }}">Inscription</a>
+				</li>
+			{% endif %}
 		</ul>
 	</div>
 </nav>

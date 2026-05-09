@@ -16,10 +16,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class RecipeType extends AbstractType
 {
+    private TokenStorageInterface $token;
+
+    public function __construct(TokenStorageInterface $token)
+    {
+        $this->token = $token;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -124,9 +132,13 @@ class RecipeType extends AbstractType
                 'class' => Ingredient::class,
                 'choice_label' => 'name', // Se basé sur l'attribut name de Ingredient
                 // mais peut changer par id,etc
+                
+                // Utilisation de DQL ou Doctrine Query Language
                 'query_builder' => function (IngredientRepository $r) {
                     return $r->createQueryBuilder('i')
-                    ->orderBy('i.name', 'ASC');
+                    ->where('i.user = :user')
+                    ->orderBy('i.name', 'ASC')
+                    ->setParameter('user', $this->token->getToken()->getUser());
                 },
                 'multiple' => true,
                 'attr' => [
