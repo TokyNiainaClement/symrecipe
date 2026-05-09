@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	SymRecipe - Recette de la communauté
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="mt-4">Recette de la communauté</h1>
+		<div class="row">
+			{% for recipe in recipes %}
+				<div class="col-3">
+					<div class="card mt-3">
+						<div class="card-header bg-secondary text-white">Recette n°{{ recipe.id }}</div>
+						<div class="card-body">
+                        <h6>{{ recipe.name }}</h6>
+                        <p>{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+                        </div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		{# affiche la navigation de pagination #}
+		<div class="navigation d-flex justify-content-center">
+			{{ knp_pagination_render(recipes) }}
+		</div>
+	</div>
+{% endblock %}
