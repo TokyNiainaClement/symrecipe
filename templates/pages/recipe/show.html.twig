@@ -7,7 +7,24 @@
 
 {% block body %}
 	<div class="container">
+
+		{# affiche un message de succes #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-3">
+				<strong>Succès!</strong>
+				{{ message }}
+			</div>
+		{% endfor %}
+
 		<h1 class="mt-4">{{ recipe.name}}</h1>
+
+		<p>La moyenne de cette recette est de
+			{{ recipe.average|number_format(2, '.', ',') }}/ 5</p>
+
+		<h4>
+			<span class="badge badge-secondary">Crée le
+				{{ recipe.createdAt|date('d/m/Y') }}</span>
+		</h4>
 
 		<p>Temps (en seconde) :
 			{{ not recipe.time is same as(null) ? recipe.time : 'non renseigné' }}</p>
@@ -20,11 +37,15 @@
 		<p>Prix (en euro) :
 			{{ not recipe.price is same as(null) ? recipe.price : 'non renseigné' }}</p>
 
-        <h4 class="mt-4">Ingredients :</h4>
+		<h4 class="mt-4">Ingredients :</h4>
 		<ul class="list-group list-group-horizontal mt-4">
 			{% for ingredient in recipe.ingredients %}
 				<li class="list-group-item">{{ ingredient.name }}</li>
 			{% endfor %}
 		</ul>
-	</div>
-{% endblock %}
+
+		<div class="mark">
+			{{ form(form) }}
+			</div>
+		</div>
+	{% endblock %}
