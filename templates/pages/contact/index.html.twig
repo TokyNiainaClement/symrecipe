@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SymRecipe - Contact
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Contactez-nous</h1>
+
+		{# affiche un message de succes #}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-3">
+				<strong>Succès!</strong>
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{{ form(form) }}
+		</div>
+	{% endblock %}
