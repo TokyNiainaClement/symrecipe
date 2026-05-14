@@ -51,7 +51,7 @@ final class IngredientController extends AbstractController
      */
     #[IsGranted("ROLE_USER")] // restraindre l'accès à la page
     // d'ajout de nouveau ingrédient pour les utilisateur anonymes
-    #[Route('/ingredient/nouveau', name: 'ingredient.new', methods: ['GET', 'POST'])]
+    #[Route('/ingredient/creation', name: 'ingredient.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
@@ -132,19 +132,26 @@ final class IngredientController extends AbstractController
     * @param Ingredient $ingredient
     * @return Response
     */
+    #[IsGranted('ROLE_USER')]
     #[Route('/ingredient/suppression/{id}', name: 'ingredient.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,
         Ingredient $ingredient
     ): Response {
-        $manager->remove($ingredient); // $ingredient => param converteur
-        $manager->flush();
 
-        // Petit message
-        $this->addFlash(
-            'success',
-            'Votre ingrédient a été supprimé avec succès !'
-        );
+        if($ingredient->getUser() === $this->getUser()) {
+
+            $manager->remove($ingredient); // $ingredient => param converteur
+            $manager->flush();
+    
+            // Petit message
+            $this->addFlash(
+                'success',
+                'Votre ingrédient a été supprimé avec succès !'
+            );
+    
+            return $this->redirectToRoute('ingredient.index');
+        }
 
         return $this->redirectToRoute('ingredient.index');
     }

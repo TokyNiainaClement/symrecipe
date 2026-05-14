@@ -128,6 +128,11 @@ class RecipeType extends AbstractType
                 ],
                 'required' => false,
             ])
+            ->add('isPublic', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'form-check-input ml-4'
+                ],
+            ])
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'choice_label' => 'name', // Se basé sur l'attribut name de Ingredient

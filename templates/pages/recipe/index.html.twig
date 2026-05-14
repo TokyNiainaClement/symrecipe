@@ -17,11 +17,15 @@
 				</div>
 			{% endfor %}
 
+			<a class="btn btn-dark btn-sm mt-3" href="{{ path('recipe.new') }}">
+				Créer une recette
+			</a>
+
 			{# affiche le nombre total d'ingrédient #}
 			<div class="count mt-4">
 				Il y a
 				{{ recipes.getTotalItemCount }}
-				recettes au total
+				recette(s) au total
 			</div>
 
 			{# Afficher la liste des recettes #}
@@ -41,7 +45,7 @@
 						<tr class="table-active">
 							<td>{{ recipe.id }}</td>
 							<td>{{ recipe.name }}</td>
-							<td>{{ (recipe.price is same as(null)) ? '--' : recipe.price}}</td>
+							<td>{{ (recipe.price is same as(null)) ? '--' : recipe.price|number_format(2, '.', ',')}} euro</td>
 							<td>{{ (recipe.difficulty is same as(null)) ? '--' : recipe.difficulty}}</td>
 							<td>{{ recipe.createdAt|date('d/m/Y') }}</td>
 							<td>
@@ -66,11 +70,11 @@
 
 		{% else %}
 			<h4>Il n'y a pas de recette</h4>
+			<a class="btn btn-dark btn-sm mt-3" href="{{ path('recipe.new') }}">
+				Créer une recette
+			</a>
 		{% endif %}
 
-		<a class="btn btn-dark btn-sm mt-3" href="{{ path('recipe.new') }}">
-			Créer une recette
-		</a>
 
 	</div>
 {% endblock %}

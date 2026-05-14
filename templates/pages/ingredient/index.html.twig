@@ -17,11 +17,15 @@
 				</div>
 			{% endfor %}
 
+			<a class="btn btn-dark btn-sm mt-3" href="{{ path('ingredient.new') }}">
+				Créer un ingrédient
+			</a>
+
 			{# affiche le nombre total d'ingrédient #}
 			<div class="count mt-4">
 				Il y a
 				{{ ingredients.getTotalItemCount }}
-				ingrédients au total
+				ingrédient(s) au total
 			</div>
 
 			{# Afficher la liste des ingrédients #}
@@ -40,7 +44,8 @@
 						<tr class="table-active">
 							<td>{{ ingredient.id }}</td>
 							<td>{{ ingredient.name }}</td>
-							<td>{{ ingredient.price }}</td>
+							<td>{{ ingredient.price|number_format(2, '.', ',') }}
+								euro</td>
 							<td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
 							<td>
 								<a class="btn btn-info btn-sm" href="{{ path('ingredient.edit', {id: ingredient.id}) }}">
@@ -64,11 +69,12 @@
 
 		{% else %}
 			<h4>Il n'y a pas d'ingrédients</h4>
+
+			<a class="btn btn-dark btn-sm mt-3" href="{{ path('ingredient.new') }}">
+				Créer un ingrédient
+			</a>
 		{% endif %}
 
-		<a class="btn btn-dark btn-sm mt-3" href="{{ path('ingredient.new') }}">
-			Créer un ingrédient
-		</a>
 
 	</div>
 {% endblock %}

@@ -51,8 +51,7 @@ final class RecipeController extends AbstractController
     * @param RecipeRepository $repository
     * @return Response
     */
-    #[IsGranted('ROLE_USER')]
-    #[Route('/recette/public', name: 'recipe.index.public', methods: ['GET'])]
+    #[Route('/recette/communaute', name: 'recipe.community', methods: ['GET'])]
     public function indexPublic(
         PaginatorInterface $paginator,
         Request $request,
@@ -64,7 +63,7 @@ final class RecipeController extends AbstractController
             5
         );
 
-        return $this->render('pages/recipe/index_public.html.twig', [
+        return $this->render('pages/recipe/community.html.twig', [
             'recipes' => $recipes
         ]);
     }
@@ -133,7 +132,7 @@ final class RecipeController extends AbstractController
     * @return Response
     */
     #[IsGranted('ROLE_USER')]
-    #[Route('/recette/nouvelle', name: 'recipe.new', methods: ['GET', 'POST'])]
+    #[Route('/recette_n/nouvelle', name: 'recipe.new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $recipe = new Recipe();
@@ -211,19 +210,26 @@ final class RecipeController extends AbstractController
      * @param Recipe $recipe
      * @return Response
     */
+    #[IsGranted('ROLE_USER')]
     #[Route('/recette/suppression/{id}', name: 'recipe.delete', methods: ['GET'])]
     public function delete(
         EntityManagerInterface $manager,
         Recipe $recipe
     ): Response {
-        $manager->remove($recipe); // $recipe => param converteur
-        $manager->flush();
 
-        // Petit message
-        $this->addFlash(
-            'success',
-            'Votre recette a été supprimé avec succès !'
-        );
+        if($recipe->getUser() === $this->getUser()) {
+            $manager->remove($recipe); // $recipe => param converteur
+            $manager->flush();
+    
+            // Petit message
+            $this->addFlash(
+                'success',
+                'Votre recette a été supprimé avec succès !'
+            );
+
+            return $this->redirectToRoute('recipe.index');
+
+        }
 
         return $this->redirectToRoute('recipe.index');
     }

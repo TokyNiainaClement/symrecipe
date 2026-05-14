@@ -13,9 +13,11 @@
 					<div class="card mt-3">
 						<div class="card-header bg-secondary text-white">Recette n°{{ recipe.id }}</div>
 						<div class="card-body">
-                        <h6>{{ recipe.name }}</h6>
-                        <p>{{ recipe.description|slice(0, 100) ~ '...' }}</p>
-                        </div>
+							<a href="{{ path('recipe.show', {id: recipe.id}) }}">
+								{{ recipe.name }}
+							</a>
+							<p>{{ recipe.description|slice(0, 100) ~ '...' }}</p>
+						</div>
 					</div>
 				</div>
 			{% endfor %}
