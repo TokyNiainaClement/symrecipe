@@ -4,24 +4,31 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="mt-4">Création d'un ingrédient</h1>
-		{{ form_start(form) }}
 
-		<div class="form-group">
-			{{ form_label(form.name) }}
-			{{ form_widget(form.name) }}
-			{{ form_errors(form.name) }}
-		</div>
+	<div class="max-w-lg mx-auto">
 
-		<div class="form-group">
-			{{ form_label(form.price) }}
-			{{ form_widget(form.price) }}
-			{{ form_errors(form.price) }}
-		</div>
+		<h1 class="text-2xl font-bold text-[#3b3a30] mb-8">Création d'un ingrédient</h1>
 
-		{{ form_label(form.submit) }}
+		{{ form_start(form, {attr: {class: 'bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6'}}) }}
+
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.name, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.name, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+				{{ form_errors(form.name) }}
+			</div>
+
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.price, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.price, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+				{{ form_errors(form.price) }}
+			</div>
+
+			<div class="pt-2">
+				{{ form_widget(form.submit, {attr: {class: 'px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer'}}) }}
+			</div>
 
 		{{ form_end(form) }}
+
 	</div>
+
 {% endblock %}

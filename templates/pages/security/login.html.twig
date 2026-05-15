@@ -4,37 +4,69 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h4 class="mt-4">Formulaire de connexion</h4>
 
-		{# Affiche une message d'erreur en cas d'erreur d'authentification #}
+	<div class="max-w-md mx-auto">
+
+		<h1 class="text-3xl font-bold text-[#3b3a30] mb-8">Connexion</h1>
+
+		<!-- Erreur d'authentification -->
 		{% if error %}
-			<div class="alert alert-danger">
-				<strong>Error!
-				</strong>
+			<div class="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3 mb-6">
+				<span class="font-semibold">Erreur !</span>
 				{{ error.messageKey|trans(error.messageData, 'security') }}
 			</div>
 		{% endif %}
 
-		{# affiche un message de succes #}
+		<!-- Flash success -->
 		{% for message in app.flashes('success') %}
-			<div class="alert alert-success mt-3">
-				<strong>Succès!</strong>
+			<div class="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg px-4 py-3 mb-6">
+				<span class="font-semibold">Succès !</span>
 				{{ message }}
 			</div>
 		{% endfor %}
 
-		<form class="jumbotron mt-4" action="{{ path('security.login') }}" method="post">
-			<div class="form-group">
-				<label for="username">Adresse email:</label>
-				<input type="email" class="form-control" placeholder="exemple@symrecipe.fr" id="username" name="_username" value="{{ last_username }}">
-			</div>
-			<div class="form-group">
-				<label for="password">Mot de passe:</label>
-				<input type="password" class="form-control" placeholder="********" id="password" name="_password">
+		<form action="{{ path('security.login') }}" method="post"
+		      class="bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6">
+
+			<div class="flex flex-col gap-1.5">
+				<label for="username" class="text-sm font-semibold text-[#3b3a30]">
+					Adresse email
+				</label>
+				<input type="email"
+				       id="username"
+				       name="_username"
+				       value="{{ last_username }}"
+				       placeholder="exemple@symrecipe.fr"
+				       class="w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black
+				              focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition">
 			</div>
 
-			<button type="submit" class="btn btn-sm btn-secondary mt-3">Se connecter</button>
+			<div class="flex flex-col gap-1.5">
+				<label for="password" class="text-sm font-semibold text-[#3b3a30]">
+					Mot de passe
+				</label>
+				<input type="password"
+				       id="password"
+				       name="_password"
+				       placeholder="••••••••"
+				       class="w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black
+				              focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition">
+			</div>
+
+			<div class="flex items-center justify-between pt-2">
+				<button type="submit"
+				        class="px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold
+				               hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer">
+					Se connecter
+				</button>
+				<a href="{{ path('security.registration') }}"
+				   class="text-sm text-black/50 hover:text-[#3b3a30] transition">
+					Pas encore de compte ?
+				</a>
+			</div>
+
 		</form>
+
 	</div>
+
 {% endblock %}

@@ -4,17 +4,45 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h4 class="mt-4">Formulaire de modification des informations de l'utilisateur</h4>
 
-        {# affiche un message de warning #}
+	<div class="max-w-md mx-auto">
+
+		<h1 class="text-3xl font-bold text-[#3b3a30] mb-8">Modification des informations</h1>
+
+		<!-- Flash warning -->
 		{% for message in app.flashes('warning') %}
-			<div class="alert alert-warning mt-3">
-				<strong>Invalide!</strong>
+			<div class="flex items-center gap-3 bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm rounded-lg px-4 py-3 mb-6">
+				<span class="font-semibold">Invalide !</span>
 				{{ message }}
 			</div>
 		{% endfor %}
 
-        {{ form(form) }}
-    </div>
+		{{ form_start(form, {attr: {class: 'bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6'}}) }}
+
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.fullName, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.fullName, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+			{{ form_errors(form.fullName) }}
+		</div>
+
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.pseudo, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.pseudo, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+			{{ form_errors(form.pseudo) }}
+		</div>
+
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.plainPassword, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.plainPassword, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+			{{ form_errors(form.plainPassword) }}
+		</div>
+
+		<div class="pt-2">
+			{{ form_widget(form.submit, {attr: {class: 'px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer'}}) }}
+		</div>
+
+		{{ form_end(form) }}
+
+	</div>
+
 {% endblock %}

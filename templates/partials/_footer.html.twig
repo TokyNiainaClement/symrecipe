@@ -1,0 +1,94 @@
+<footer class="bg-[#3b3a30] border-t border-[#ffcc5c]/20 mt-auto">
+
+	<div class="max-w-6xl mx-auto px-6 py-10">
+
+		<div
+			class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
+
+			<!-- Brand -->
+			<div class="flex flex-col gap-3">
+				<span class="text-[#ffcc5c] font-bold text-xl tracking-wide">◆ SymRecipe</span>
+				<p class="text-white/50 text-sm leading-relaxed">
+					Créez, partagez et découvrez des recettes faites avec vos propres ingrédients.
+				</p>
+			</div>
+
+			<!-- Navigation -->
+			<div class="flex flex-col gap-3">
+				<span class="text-white/30 text-xs font-semibold uppercase tracking-widest">Navigation</span>
+				<ul class="flex flex-col gap-2">
+					<li>
+						<a href="{{ path('home.index') }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+							Accueil
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('recipe.community') }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+							Recettes de la communauté
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('contact.index') }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+							Nous contacter
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Compte -->
+			<div class="flex flex-col gap-3">
+				<span class="text-white/30 text-xs font-semibold uppercase tracking-widest">Mon compte</span>
+				<ul class="flex flex-col gap-2">
+					{% if app.user %}
+						<li>
+							<a href="{{ path('ingredient.index') }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+								Mes ingrédients
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('recipe.index') }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+								Mes recettes
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('user.edit', {id: app.user.id}) }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+								Mon profil
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('security.logout') }}" class="text-red-400/70 text-sm hover:text-red-400 transition">
+								Déconnexion
+							</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="{{ path('security.login') }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+								Connexion
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('security.registration') }}" class="text-white/60 text-sm hover:text-[#ffcc5c] transition">
+								Inscription
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- Séparateur + copyright -->
+		<div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+			<p class="text-white/30 text-xs">
+				©
+				{{ "now"|date("Y") }}
+				SymRecipe. Tous droits réservés. Développé par Tokiniaina Clément
+			</p>
+			<p class="text-white/20 text-xs">
+				Fait avec ♥ en Symfony & Tailwind CSS
+			</p>
+		</div>
+
+	</div>
+
+</footer>

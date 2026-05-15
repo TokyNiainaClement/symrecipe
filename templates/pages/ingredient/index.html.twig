@@ -4,56 +4,62 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
 
-		{% if not ingredients.items is same as([]) %}
-			<h1>Mes ingrédients</h1>
+	{% if not ingredients.items is same as([]) %}
 
-			{# affiche un message de succes #}
-			{% for message in app.flashes('success') %}
-				<div class="alert alert-success mt-3">
-					<strong>Succès!</strong>
-					{{ message }}
-				</div>
-			{% endfor %}
-
-			<a class="btn btn-dark btn-sm mt-3" href="{{ path('ingredient.new') }}">
-				Créer un ingrédient
+		<!-- En-tête -->
+		<div class="flex items-center justify-between mb-6">
+			<h1 class="text-2xl font-bold text-[#3b3a30]">Mes ingrédients</h1>
+			<a href="{{ path('ingredient.new') }}"
+			   class="inline-block px-5 py-2 rounded-full bg-[#3b3a30] text-white text-sm font-semibold
+			          hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md">
+				+ Créer un ingrédient
 			</a>
+		</div>
 
-			{# affiche le nombre total d'ingrédient #}
-			<div class="count mt-4">
-				Il y a
-				{{ ingredients.getTotalItemCount }}
-				ingrédient(s) au total
+		<!-- Flash success -->
+		{% for message in app.flashes('success') %}
+			<div class="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg px-4 py-3 mb-5">
+				<span class="font-semibold">Succès !</span>
+				{{ message }}
 			</div>
+		{% endfor %}
 
-			{# Afficher la liste des ingrédients #}
-			<table class="table table-bordered table-borderless">
+		<!-- Compteur -->
+		<p class="text-sm text-black/50 mb-4">
+			Il y a <span class="font-semibold text-[#3b3a30]">{{ ingredients.getTotalItemCount }}</span> ingrédient(s) au total
+		</p>
+
+		<!-- Table -->
+		<div class="rounded-xl border border-[#3b3a30]/20 overflow-hidden shadow-sm mb-6">
+			<table class="w-full text-sm">
 				<thead>
-					<tr>
-						<th>Numréro</th>
-						<th>Nom</th>
-						<th>Prix</th>
-						<th>Date de création</th>
-						<th colspan="2">Action</th>
+					<tr class="bg-[#3b3a30] text-[#ffcc5c] text-xs uppercase tracking-widest">
+						<th class="px-4 py-3 text-left font-semibold">Numéro</th>
+						<th class="px-4 py-3 text-left font-semibold">Nom</th>
+						<th class="px-4 py-3 text-left font-semibold">Prix</th>
+						<th class="px-4 py-3 text-left font-semibold">Date de création</th>
+						<th class="px-4 py-3 text-center font-semibold" colspan="2">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for ingredient in ingredients %}
-						<tr class="table-active">
-							<td>{{ ingredient.id }}</td>
-							<td>{{ ingredient.name }}</td>
-							<td>{{ ingredient.price|number_format(2, '.', ',') }}
-								euro</td>
-							<td>{{ ingredient.createdAt|date('d/m/Y') }}</td>
-							<td>
-								<a class="btn btn-info btn-sm" href="{{ path('ingredient.edit', {id: ingredient.id}) }}">
+						<tr class="border-t border-[#3b3a30]/10 hover:bg-[#ffcc5c]/5 transition">
+							<td class="px-4 py-3 text-black/50 font-mono text-xs">#{{ ingredient.id }}</td>
+							<td class="px-4 py-3 font-medium text-[#3b3a30]">{{ ingredient.name }}</td>
+							<td class="px-4 py-3 text-black/70">{{ ingredient.price|number_format(2, '.', ',') }} €</td>
+							<td class="px-4 py-3 text-black/50">{{ ingredient.createdAt|date('d/m/Y') }}</td>
+							<td class="px-4 py-3 text-center">
+								<a href="{{ path('ingredient.edit', {id: ingredient.id}) }}"
+								   class="inline-block px-3 py-1 rounded-full text-xs font-semibold
+								          bg-[#3b3a30] text-white hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition">
 									Modifier
 								</a>
 							</td>
-							<td>
-								<a class="btn btn-danger btn-sm" href="{{ path('ingredient.delete', { id: ingredient.id }) }}">
+							<td class="px-4 py-3 text-center">
+								<a href="{{ path('ingredient.delete', { id: ingredient.id }) }}"
+								   class="inline-block px-3 py-1 rounded-full text-xs font-semibold
+								          bg-red-100 text-red-600 hover:bg-red-500 hover:text-white transition">
 									Supprimer
 								</a>
 							</td>
@@ -61,20 +67,26 @@
 					{% endfor %}
 				</tbody>
 			</table>
+		</div>
 
-			{# affiche la navigation de pagination #}
-			<div class="navigation d-flex justify-content-center">
-				{{ knp_pagination_render(ingredients) }}
-			</div>
+		<!-- Pagination -->
+		<div class="flex justify-center">
+			{{ knp_pagination_render(ingredients) }}
+		</div>
 
-		{% else %}
-			<h4>Il n'y a pas d'ingrédients</h4>
+	{% else %}
 
-			<a class="btn btn-dark btn-sm mt-3" href="{{ path('ingredient.new') }}">
-				Créer un ingrédient
+		<!-- État vide -->
+		<div class="flex flex-col items-center justify-center py-20 text-center">
+			<p class="text-2xl font-semibold text-[#3b3a30] mb-2">Aucun ingrédient</p>
+			<p class="text-black/50 text-sm mb-6">Commencez par créer votre premier ingrédient.</p>
+			<a href="{{ path('ingredient.new') }}"
+			   class="inline-block px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold
+			          hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md">
+				+ Créer un ingrédient
 			</a>
-		{% endif %}
+		</div>
 
+	{% endif %}
 
-	</div>
 {% endblock %}

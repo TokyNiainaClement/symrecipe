@@ -4,26 +4,42 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="mt-4">Modification d'un ingrédient</h1>
-		<form name="ingredient" method="post">
 
-			<div class="form-group">
-				{{ form_label(form.name) }}
-				{{ form_widget(form.name) }}
+	<div class="max-w-lg mx-auto">
+
+		<h1 class="text-2xl font-bold text-[#3b3a30] mb-8">Modification d'un ingrédient</h1>
+
+		<form name="ingredient" method="post"
+		      class="bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6">
+
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.name, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.name, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
 				{{ form_errors(form.name) }}
 			</div>
 
-			<div class="form-group">
-				{{ form_label(form.price) }}
-				{{ form_widget(form.price) }}
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.price, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.price, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
 				{{ form_errors(form.price) }}
 			</div>
 
 			{{ form_row(form._token) }}
 
-			<button type="submit" id="ingredient_submit" name="ingredient[submit]" class="btn btn-secondary btn-sm mt-4">Modifier l'ingrédient</button>
+			<div class="flex items-center gap-4 pt-2">
+				<button type="submit" id="ingredient_submit" name="ingredient[submit]"
+				        class="px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold
+				               hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer">
+					Modifier l'ingrédient
+				</button>
+				<a href="{{ path('ingredient.index') }}"
+				   class="text-sm text-black/50 hover:text-[#3b3a30] transition">
+					Annuler
+				</a>
+			</div>
 
 		</form>
+
 	</div>
+
 {% endblock %}

@@ -5,27 +5,34 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1 class="mt-4">Recette de la communauté</h1>
-		<div class="row">
-			{% for recipe in recipes %}
-				<div class="col-3">
-					<div class="card mt-3">
-						<div class="card-header bg-secondary text-white">Recette n°{{ recipe.id }}</div>
-						<div class="card-body">
-							<a href="{{ path('recipe.show', {id: recipe.id}) }}">
-								{{ recipe.name }}
-							</a>
-							<p>{{ recipe.description|slice(0, 100) ~ '...' }}</p>
-						</div>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
 
-		{# affiche la navigation de pagination #}
-		<div class="navigation d-flex justify-content-center">
-			{{ knp_pagination_render(recipes) }}
-		</div>
+	<h1 class="text-2xl font-bold text-[#3b3a30] mb-8">Recettes de la communauté</h1>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+		{% for recipe in recipes %}
+			<div class="rounded-xl border border-[#3b3a30]/20 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200">
+
+				<div class="bg-[#3b3a30] text-[#ffcc5c] text-xs font-semibold uppercase tracking-widest px-4 py-2.5">
+					Recette n°{{ recipe.id }}
+				</div>
+
+				<div class="bg-white p-5 flex flex-col gap-2">
+					<a href="{{ path('recipe.show', {id: recipe.id}) }}"
+					   class="font-semibold text-[#3b3a30] hover:text-[#ffcc5c] transition leading-snug">
+						{{ recipe.name }}
+					</a>
+					<p class="text-sm text-black/60 leading-relaxed">
+						{{ recipe.description|slice(0, 100) ~ '...' }}
+					</p>
+				</div>
+
+			</div>
+		{% endfor %}
 	</div>
+
+	<!-- Pagination -->
+	<div class="flex justify-center">
+		{{ knp_pagination_render(recipes) }}
+	</div>
+
 {% endblock %}

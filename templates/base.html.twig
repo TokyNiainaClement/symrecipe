@@ -6,26 +6,30 @@
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
-			<link rel="stylesheet" href="http://127.0.0.1:8000/css/all.min.css"/>
-			<link rel="stylesheet" href="http://127.0.0.1:8000/css/bootstrap.min.css"/>
 		{% endblock %}
-
-		{% block javascripts %}
-			{{ encore_entry_link_tags('app') }}
-			<script src="http://127.0.0.1:8000/js/jquery-3.7.1.min.js"></script>
-			<script src="http://127.0.0.1:8000/js/all.min.js"></script>
-			<script src="http://127.0.0.1:8000/js/bootstrap.min.js"></script>
-		{% endblock %}
-
 	</head>
-	<body>
+
+	<body class="bg-white text-black min-h-screen font-sans flex flex-col">
+
+		{{ importmap('app') }}
+
 		{% block header %}
 			{% include "partials/_header.html.twig" %}
 		{% endblock %}
-		
-		{% block body %}
-		{% endblock %}
-	</body>
-</html>
+
+		<main class="max-w-6xl w-full mx-auto px-6 py-10 flex-1"> {% block body %}{% endblock %}
+			</main>
+
+			{% block footer %}
+				{% include "partials/_footer.html.twig" %}
+			{% endblock %}
+
+		</body>
+	</html>

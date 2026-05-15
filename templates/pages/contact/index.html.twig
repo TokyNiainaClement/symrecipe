@@ -4,17 +4,50 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<h1>Contactez-nous</h1>
 
-		{# affiche un message de succes #}
+	<div class="max-w-lg mx-auto">
+
+		<h1 class="text-3xl font-bold text-[#3b3a30] mb-6">Contactez-nous</h1>
+
 		{% for message in app.flashes('success') %}
-			<div class="alert alert-success mt-3">
-				<strong>Succès!</strong>
+			<div class="flex items-center gap-3 bg-green-50 border border-green-200 text-green-800 text-sm rounded-lg px-4 py-3 mb-6">
+				<span class="font-semibold">Succès !</span>
 				{{ message }}
 			</div>
 		{% endfor %}
 
-		{{ form(form) }}
-		</div>
-	{% endblock %}
+		{{ form_start(form, {attr: {class: 'bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6'}}) }}
+
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.fullName, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.fullName, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+				{{ form_errors(form.fullName) }}
+			</div>
+
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.email, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.email, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+				{{ form_errors(form.email) }}
+			</div>
+
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.subject, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.subject, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+				{{ form_errors(form.subject) }}
+			</div>
+
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.message, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.message, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition resize-none', 'rows': 5}}) }}
+				{{ form_errors(form.message) }}
+			</div>
+
+			<div class="pt-2">
+				{{ form_widget(form.submit, {attr: {class: 'px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer'}}) }}
+			</div>
+
+		{{ form_end(form) }}
+
+	</div>
+
+{% endblock %}
