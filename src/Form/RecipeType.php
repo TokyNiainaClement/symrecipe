@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RecipeType extends AbstractType
 {
@@ -46,6 +47,7 @@ class RecipeType extends AbstractType
                     new Assert\Length(null, 2, 50)
                 ]
             ])
+            ->add('imageFile', VichImageType::class)
             ->add('time', IntegerType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -132,6 +134,7 @@ class RecipeType extends AbstractType
                 'attr' => [
                     'class' => 'form-check-input ml-4'
                 ],
+                'required' => false,
             ])
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,

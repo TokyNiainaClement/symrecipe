@@ -7,71 +7,87 @@
 
 	<div class="max-w-2xl mx-auto">
 
-		<h1 class="text-2xl font-bold text-[#3b3a30] mb-8">Création d'une recette</h1>
+		<h1 class="text-3xl font-bold text-[#3b3a30] mb-8">Création d'une recette</h1>
 
 		{{ form_start(form, {attr: {class: 'bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6'}}) }}
 
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.name, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.name, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+			{{ form_errors(form.name) }}
+		</div>
+
+		<!-- Champ image -->
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.imageFile, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			<label class="flex items-center gap-4 w-full border border-dashed border-[#3b3a30]/30 rounded-xl px-4 py-4 cursor-pointer hover:border-[#ffcc5c] hover:bg-[#ffcc5c]/5 transition group">
+				<span class="shrink-0 w-10 h-10 rounded-full bg-[#3b3a30]/8 flex items-center justify-center text-[#3b3a30] group-hover:bg-[#ffcc5c]/20 transition">
+					📷
+				</span>
+				<span class="flex flex-col gap-0.5">
+					<span class="text-sm font-medium text-[#3b3a30]">Choisir une image</span>
+					<span class="text-xs text-black/40">PNG, JPG, WEBP — max 2 Mo</span>
+				</span>
+				{{ form_widget(form.imageFile, {attr: {class: 'sr-only'}}) }}
+			</label>
+			{{ form_errors(form.imageFile) }}
+		</div>
+
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.time, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.time, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+			{{ form_errors(form.time) }}
+		</div>
+
+		<div class="grid grid-cols-2 gap-4">
 			<div class="flex flex-col gap-1.5">
-				{{ form_label(form.name, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
-				{{ form_widget(form.name, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
-				{{ form_errors(form.name) }}
-			</div>
-
-			<div class="flex flex-col gap-1.5">
-				{{ form_label(form.time, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
-				{{ form_widget(form.time, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
-				{{ form_errors(form.time) }}
-			</div>
-
-			<div class="grid grid-cols-2 gap-4">
-				<div class="flex flex-col gap-1.5">
-					{{ form_label(form.nbPeople, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
-					{{ form_widget(form.nbPeople, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
-					{{ form_errors(form.nbPeople) }}
-				</div>
-
-				<div class="flex flex-col gap-1.5">
-					{{ form_label(form.difficulty, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
-					{{ form_widget(form.difficulty, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
-					{{ form_errors(form.difficulty) }}
-				</div>
-			</div>
-
-			<div class="flex flex-col gap-1.5">
-				{{ form_label(form.description, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
-				{{ form_widget(form.description, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition resize-none', 'rows': 4}}) }}
-				{{ form_errors(form.description) }}
-			</div>
-
-			<div class="flex flex-col gap-1.5">
-				{{ form_label(form.price, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
-				{{ form_widget(form.price, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
-				{{ form_errors(form.price) }}
-			</div>
-
-			<div class="flex flex-col gap-3">
-				<div class="flex items-center gap-3">
-					{{ form_widget(form.isFavorite, {attr: {class: 'w-4 h-4 accent-[#ffcc5c] cursor-pointer'}}) }}
-					<label class="text-sm font-medium text-[#3b3a30] cursor-pointer">Favorite ?</label>
-					{{ form_errors(form.isFavorite) }}
-				</div>
-
-				<div class="flex items-center gap-3">
-					{{ form_widget(form.isPublic, {attr: {class: 'w-4 h-4 accent-[#ffcc5c] cursor-pointer'}}) }}
-					<label class="text-sm font-medium text-[#3b3a30] cursor-pointer">Recette publique ?</label>
-					{{ form_errors(form.isPublic) }}
-				</div>
+				{{ form_label(form.nbPeople, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.nbPeople, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+				{{ form_errors(form.nbPeople) }}
 			</div>
 
 			<div class="flex flex-col gap-1.5">
-				{{ form_label(form.ingredients, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
-				{{ form_widget(form.ingredients, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
-				{{ form_errors(form.ingredients) }}
+				{{ form_label(form.difficulty, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				{{ form_widget(form.difficulty, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+				{{ form_errors(form.difficulty) }}
+			</div>
+		</div>
+
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.description, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.description, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition resize-none', 'rows': 4}}) }}
+			{{ form_errors(form.description) }}
+		</div>
+
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.price, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.price, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+			{{ form_errors(form.price) }}
+		</div>
+
+		<div class="flex flex-col gap-3">
+			<div class="flex items-center gap-3">
+				{{ form_widget(form.isFavorite, {attr: {class: 'w-4 h-4 accent-[#ffcc5c] cursor-pointer'}}) }}
+				<label class="text-sm font-medium text-[#3b3a30] cursor-pointer">Favorite ?</label>
+				{{ form_errors(form.isFavorite) }}
 			</div>
 
-			<div class="pt-2">
-				{{ form_widget(form.submit, {attr: {class: 'px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer'}}) }}
+			<div class="flex items-center gap-3">
+				{{ form_widget(form.isPublic, {attr: {class: 'w-4 h-4 accent-[#ffcc5c] cursor-pointer'}}) }}
+				<label class="text-sm font-medium text-[#3b3a30] cursor-pointer">Recette publique ?</label>
+				{{ form_errors(form.isPublic) }}
 			</div>
+		</div>
+
+		<div class="flex flex-col gap-1.5">
+			{{ form_label(form.ingredients, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+			{{ form_widget(form.ingredients, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
+			{{ form_errors(form.ingredients) }}
+		</div>
+
+		<div class="pt-2">
+			{{ form_widget(form.submit, {attr: {class: 'px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer'}}) }}
+		</div>
 
 		{{ form_end(form) }}
 

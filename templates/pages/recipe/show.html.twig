@@ -18,21 +18,39 @@
 	<div
 		class="max-w-3xl mx-auto">
 
-		<!-- En-tête recette -->
-		<div class="mb-8">
-			<h1 class="text-4xl font-bold text-[#3b3a30] mb-3">{{ recipe.name }}</h1>
+		<!-- En-tête recette : image à gauche, infos à droite -->
+		<div
+			class="flex items-center gap-8 mb-8">
 
-			<div class="flex items-center gap-4 flex-wrap">
-				<span class="inline-block bg-[#3b3a30] text-[#ffcc5c] text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full">
-					Créé le
-					{{ recipe.createdAt|date('d/m/Y') }}
-				</span>
-				<span class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3b3a30]">
-					⭐
-					{{ recipe.average|number_format(2, '.', ',') }}
-					/ 5
-				</span>
+			<!-- Image arrondie -->
+			<div class="shrink-0">
+				{% if vich_uploader_asset(recipe, 'imageFile') %}
+					<a href="{{ vich_uploader_asset(recipe, 'imageFile') }}" target="_blank" rel="noopener noreferrer">
+						<img src="{{ vich_uploader_asset(recipe, 'imageFile') }}" alt="{{ recipe.name }}" class="w-36 h-36 rounded-full object-cover border-4 border-[#ffcc5c]/40 shadow-md hover:border-[#ffcc5c] hover:scale-105 transition-all duration-200 cursor-pointer">
+					</a>
+				{% else %}
+					<div class="w-36 h-36 rounded-full border-4 border-[#ffcc5c]/40 shadow-md bg-[#3b3a30]/5 flex items-center justify-center text-5xl">
+						🍽️
+					</div>
+				{% endif %}
 			</div>
+
+			<!-- Nom + date + note -->
+			<div class="flex flex-col gap-3">
+				<h1 class="text-4xl font-bold text-[#3b3a30]">{{ recipe.name }}</h1>
+				<div class="flex items-center gap-3 flex-wrap">
+					<span class="inline-block bg-[#3b3a30] text-[#ffcc5c] text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full">
+						Créé le
+						{{ recipe.createdAt|date('d/m/Y') }}
+					</span>
+					<span class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#3b3a30]">
+						⭐
+						{{ recipe.average|number_format(2, '.', ',') }}
+						/ 5
+					</span>
+				</div>
+			</div>
+
 		</div>
 
 		<!-- Infos principales -->

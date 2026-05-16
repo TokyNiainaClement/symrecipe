@@ -7,15 +7,30 @@
 
 	<div class="max-w-2xl mx-auto">
 
-		<h1 class="text-2xl font-bold text-[#3b3a30] mb-8">Modification de la recette</h1>
+		<h1 class="text-3xl font-bold text-[#3b3a30] mb-8">Modification de la recette</h1>
 
-		<form name="recipe" method="post"
-		      class="bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6">
+		<form name="recipe" method="post" enctype="multipart/form-data" class="bg-white border border-[#3b3a30]/20 rounded-2xl shadow-sm p-8 flex flex-col gap-6">
 
 			<div class="flex flex-col gap-1.5">
 				{{ form_label(form.name, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
 				{{ form_widget(form.name, {attr: {class: 'w-full border border-[#3b3a30]/30 rounded-lg px-4 py-2.5 text-sm text-black focus:outline-none focus:border-[#ffcc5c] focus:ring-2 focus:ring-[#ffcc5c]/30 transition'}}) }}
 				{{ form_errors(form.name) }}
+			</div>
+
+			<!-- Champ image -->
+			<div class="flex flex-col gap-1.5">
+				{{ form_label(form.imageFile, null, {label_attr: {class: 'text-sm font-semibold text-[#3b3a30]'}}) }}
+				<label class="flex items-center gap-4 w-full border border-dashed border-[#3b3a30]/30 rounded-xl px-4 py-4 cursor-pointer hover:border-[#ffcc5c] hover:bg-[#ffcc5c]/5 transition group">
+					<span class="shrink-0 w-10 h-10 rounded-full bg-[#3b3a30]/8 flex items-center justify-center text-[#3b3a30] group-hover:bg-[#ffcc5c]/20 transition">
+						📷
+					</span>
+					<span class="flex flex-col gap-0.5">
+						<span class="text-sm font-medium text-[#3b3a30]">Choisir une image</span>
+						<span class="text-xs text-black/40">PNG, JPG, WEBP — max 2 Mo</span>
+					</span>
+					{{ form_widget(form.imageFile, {attr: {class: 'sr-only'}}) }}
+				</label>
+				{{ form_errors(form.imageFile) }}
 			</div>
 
 			<div class="flex flex-col gap-1.5">
@@ -65,13 +80,11 @@
 			{{ form_row(form._token) }}
 
 			<div class="flex items-center gap-4 pt-2">
-				<button type="submit" id="recipe_submit" name="recipe[submit]"
-				        class="px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold
-				               hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer">
+				<button type="submit" id="recipe_submit" name="recipe[submit]" class="px-6 py-2.5 rounded-full bg-[#3b3a30] text-white text-sm font-semibold
+										               hover:bg-[#ffcc5c] hover:text-[#3b3a30] transition shadow-md cursor-pointer">
 					Mettre à jour cette recette
 				</button>
-				<a href="{{ path('recipe.index') }}"
-				   class="text-sm text-black/50 hover:text-[#3b3a30] transition">
+				<a href="{{ path('recipe.index') }}" class="text-sm text-black/50 hover:text-[#3b3a30] transition">
 					Annuler
 				</a>
 			</div>

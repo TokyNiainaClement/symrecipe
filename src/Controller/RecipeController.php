@@ -82,7 +82,7 @@ final class RecipeController extends AbstractController
     MarkRepository $markRepository,
     EntityManagerInterface $manager): Response
     {
-        if($recipe->isPublic() == false) {
+        if($recipe->isPublic() == false && $recipe->getUser() !== $this->getUser()) {
             return $this->redirectToRoute('recipe.index');
         }
 
