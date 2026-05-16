@@ -22,6 +22,10 @@ final class SecurityController extends AbstractController
     #[Route('/connexion', name: 'security.login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        if($this->getUser()) {
+            return $this->redirectToRoute('home.index');
+        }
+
         return $this->render('pages/security/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
             'error' => $authenticationUtils->getLastAuthenticationError()
@@ -51,6 +55,10 @@ final class SecurityController extends AbstractController
         Request $request,
         EntityManagerInterface $manager): Response
     {
+        if($this->getUser()) {
+            return $this->redirectToRoute('home.index');
+        }
+        
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
 

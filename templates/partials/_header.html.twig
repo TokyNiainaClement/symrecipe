@@ -37,7 +37,7 @@
 				{% if app.user %}
 					<li>
 						<a href="{{ path('ingredient.index') }}" class="text-sm font-medium px-3 py-2 rounded-md transition
-																						   {% if app.current_route == 'ingredient.index' %}
+																						   {% if app.current_route == 'ingredient.index' or app.current_route == 'ingredient.edit' or app.current_route == 'ingredient.new' %}
 																						       text-[#ffcc5c] font-semibold underline underline-offset-4 decoration-[#ffcc5c]
 																						   {% else %}
 																						       text-white/75 hover:text-[#ffcc5c] hover:bg-[#ffcc5c]/10
@@ -48,7 +48,7 @@
 
 					<li>
 						<a href="{{ path('recipe.index') }}" class="text-sm font-medium px-3 py-2 rounded-md transition
-																						   {% if app.current_route == 'recipe.index' %}
+																						   {% if app.current_route == 'recipe.index' or app.current_route == 'recipe.edit' or app.current_route == 'recipe.show' or app.current_route == 'recipe.new' %}
 																						       text-[#ffcc5c] font-semibold underline underline-offset-4 decoration-[#ffcc5c]
 																						   {% else %}
 																						       text-white/75 hover:text-[#ffcc5c] hover:bg-[#ffcc5c]/10
